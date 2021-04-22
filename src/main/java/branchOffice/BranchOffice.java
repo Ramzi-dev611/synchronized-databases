@@ -287,7 +287,8 @@ public class BranchOffice  extends JFrame {
     }
 
     public void handleDataBaseCheckerEvent(ActionEvent e){
-
+        this.dispose();
+        new DataBaseContent(dba);
     }
 
     public void handleMessageSendingEvent(ActionEvent e){

@@ -2,6 +2,7 @@ package main.java;
 
 import java.io.BufferedReader;
 import java.io.StringReader;
+import java.util.ArrayList;
 
 public class Sale {
     protected String id;
@@ -82,8 +83,6 @@ public class Sale {
             e.printStackTrace();
         }
     }
-
-    public Sale (){}
 
     public String toJSON() {
         return "{\n" +
@@ -173,5 +172,19 @@ public class Sale {
 
     public double getTax() {
         return tax;
+    }
+
+    public ArrayList <String> toArray(){
+        ArrayList<String> result = new ArrayList<String>(9);
+        result.add(id);
+        result.add(date);
+        result.add(region);
+        result.add(product);
+        result.add(""+quantity);
+        result.add(""+cost);
+        result.add(""+amt);
+        result.add(""+tax);
+        result.add(""+total);
+        return result;
     }
 }
