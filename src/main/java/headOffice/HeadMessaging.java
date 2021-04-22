@@ -4,6 +4,8 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
+import main.java.DataBaseAccess;
+import main.java.Sale;
 
 public class HeadMessaging {
     protected Connection connection;
@@ -18,12 +20,14 @@ public class HeadMessaging {
         }
     }
 
-    public void receive () {
+    public void receive (DataBaseAccess db) {
         try{
             Channel channel = connection.createChannel();
             channel.queueDeclare("HeadDataBase", false, false, false, null);
             DeliverCallback callback = (tag , delivery) -> {
-
+                String message = new String (delivery.getBody(), "UTF-8");
+                Sale s = new Sale(message);
+                db.addHead(s);
             };
             channel.basicConsume("HeadDataBase", true, callback, tag -> {});
         }catch ( Exception e ){

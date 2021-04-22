@@ -23,7 +23,6 @@ import java.util.*;
 
 public class BranchOffice  extends JFrame {
 
-    protected ArrayList<Sale> toBeSended = new ArrayList<Sale>();
     protected JPanel formZone;
     protected final String [] fieldsNames = {"Sale ID", "Date of Sale", "Region (characters) ", 
             "Product (caracters)",
@@ -215,11 +214,10 @@ public class BranchOffice  extends JFrame {
                 Double.parseDouble((String)data.toArray()[4]),
                 Double.parseDouble((String)data.toArray()[5]));
         dba.add(s);
-        toBeSended.add(s);
+        for (int i =1; i<6; i++){
+            ((JTextField)inputs.toArray()[i]).setText("");
+        }
         successMessage.setVisible(true);
-        int i = 30000;
-        while (i != 0) { i--;}
-        successMessage.setVisible(false);
     }
 
     public void buildForm(){
@@ -292,10 +290,11 @@ public class BranchOffice  extends JFrame {
     }
 
     public void handleMessageSendingEvent(ActionEvent e){
-        for (Sale s : toBeSended){
+        ArrayList <Sale> toBeSent = dba.getAllUnsent();
+        for (Sale s : toBeSent){
+            dba.updateSale(s.getId());
             messageService.send(s.toJSON());
         }
-        toBeSended.clear();
     }
 
     public void buildActionZone () {

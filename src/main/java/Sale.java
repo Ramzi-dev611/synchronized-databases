@@ -74,8 +74,6 @@ public class Sale {
                             total = Double.parseDouble(content);
                             break;
                         }
-
-
                     }
                 }i++;
             }
