@@ -13,6 +13,7 @@ public class DataBaseContent extends JFrame {
             "Product",
             "Quantity", "Cost" , "Amount" , "Tax" , "Total"};
 
+    protected String dataBaseName;
     protected int maxWidth = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     protected int maxHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     protected ArrayList<Sale> sales ;
@@ -30,7 +31,7 @@ public class DataBaseContent extends JFrame {
         refresh.setBounds(20,15,90,90);
         refresh.addActionListener(e -> {
             this.dispose();
-            new DataBaseContent(dba);
+            new DataBaseContent(dba, dataBaseName);
         });
         refreshButtonPanel = new JPanel();
         refreshButtonPanel.setLayout(null);
@@ -61,7 +62,7 @@ public class DataBaseContent extends JFrame {
         goHome.setBounds(20 , 10 , 100, 95);
         goHome.addActionListener( e -> {
             this.dispose();
-            new BranchOffice();
+            new BranchOffice(dataBaseName);
         });
         homeButtonPanel = new JPanel();
         homeButtonPanel.setLayout(null);
@@ -145,7 +146,8 @@ public class DataBaseContent extends JFrame {
         scrollable.setBounds (10, 135, maxWidth-20, maxHeight-170);
     }
 
-    public DataBaseContent (DataBaseAccess d){
+    public DataBaseContent (DataBaseAccess d, String dbn){
+        dataBaseName = dbn;
         dba = d;
         sales = dba.getAll();
         this.setTitle("Local DataBase");

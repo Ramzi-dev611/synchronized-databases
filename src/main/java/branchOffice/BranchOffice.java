@@ -23,6 +23,7 @@ import java.util.*;
 
 public class BranchOffice  extends JFrame {
 
+    protected String dataBaseName;
     protected JPanel formZone;
     protected final String [] fieldsNames = {"Sale ID", "Date of Sale", "Region (characters) ", 
             "Product (caracters)",
@@ -286,7 +287,7 @@ public class BranchOffice  extends JFrame {
 
     public void handleDataBaseCheckerEvent(ActionEvent e){
         this.dispose();
-        new DataBaseContent(dba);
+        new DataBaseContent(dba, dataBaseName);
     }
 
     public void handleMessageSendingEvent(ActionEvent e){
@@ -305,8 +306,9 @@ public class BranchOffice  extends JFrame {
         messageSenderButtonCreator();
     }
 
-    public BranchOffice (){
-        dba = new DataBaseAccess("branch_office_db", "root", "");
+    public BranchOffice (String dbn){
+        dataBaseName = dbn;
+        dba = new DataBaseAccess(dataBaseName, "root", "");
         messageService = new BranchMessaging();
 
         this.setTitle("Branch Office");
@@ -320,9 +322,5 @@ public class BranchOffice  extends JFrame {
         this.add(actionsZone);
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setVisible(true);
-    }
-
-    public static void main (String [] args){
-        new BranchOffice();
     }
 }
